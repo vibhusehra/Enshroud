@@ -20,3 +20,6 @@
  2 level concealing of the message has been done
   
  Sender Module(Prompt)--->Receiver Module(generates key)--->Sender(encrpyts data)--->Encode(puts the encrypted data in Audio using LSB technique)--->Decode(retrieves the data from audio)--->Receiver(decrypts the data using private key)
+ 
+
+vibhusehra@gmail.com || doshirishabh26@gmail.com
