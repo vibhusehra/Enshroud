@@ -1,25 +1,27 @@
 import wave
-end_char = '#$%'
+def decode():
 
-song = wave.open('song_embedded.wav', 'rb')
+    end_char = '#$%'
 
-frame_bytes = bytearray(list(song.readframes(song.getnframes())))
+    song = wave.open('song_embedded.wav', 'rb')
 
-received = [frame_bytes[i] & 1 for i in range(len(frame_bytes))]  
-# print(type(received[0]))
+    frame_bytes = bytearray(list(song.readframes(song.getnframes())))
 
-decoded = ""
-for i in range(0, len(received), 8):
-	'''
-		map(str, [int list]): will convert all ints to string: [1,0,1]: ['1','0','1']
-		.join(): convert list to string
-		int(string, 2): convert given string to integer and the given base is 2(binary)
-		chr: convert the given integer to it's corresponding character
-	'''
-	char = chr(int("".join(map(str, received[i:i+8])), 2))
-	decoded += char
-	if end_char in decoded[len(decoded) - len(end_char) - 1:-1]:
-		decoded = decoded.split(end_char)[0]
-		break
+    received = [frame_bytes[i] & 1 for i in range(len(frame_bytes))]  
+    # print(type(received[0]))
 
-print(decoded)
+    decoded = ""
+    for i in range(0, len(received), 8):
+        '''
+            map(str, [int list]): will convert all ints to string: [1,0,1]: ['1','0','1']
+            .join(): convert list to string
+            int(string, 2): convert given string to integer and the given base is 2(binary)
+            chr: convert the given integer to it's corresponding character
+        '''
+        char = chr(int("".join(map(str, received[i:i+8])), 2))
+        decoded += char
+        if end_char in decoded[len(decoded) - len(end_char) - 1:-1]:
+            decoded = decoded.split(end_char)[0]
+            break
+
+    return decoded
