@@ -25,11 +25,27 @@ class receiver():
         p = p1
         q = p2
         
+        # Part of the public key
         self.n = int(p * q)
+        '''
+            t -> integer
+              -> called theta(n)
+        '''
         t = (p-1) * (q-1)
+
+        '''
+            now we find e, i.e the second public key
+            e -> integer => [1<e<t]
+              -> gcd(e,t) = 1
+        '''
         for e_prime in range(2 , t):
             if self.gcd(e_prime , t) == 1:
                 break
+
+        '''
+            Now we create the private key
+              -> ed % t = 1
+        '''
         for i in range(1,10):
             x = 1 + i*t 
             if x % e_prime == 0:
