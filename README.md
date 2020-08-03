@@ -10,7 +10,7 @@
   We are doing all the work here from sending the message to adding the message for the reciever.
   - A sample workflow has been described in the jupyter notebook file- Sample Workflow
   - First the sender prompts the receiver via message.txt that it wants to send a message
-  - The reciever module makes 2 set of keys (One private and One public) shares the public key to the receiver(via message.txt) and keeps the private key to itself
+  - The reciever module makes 2 set of keys (One private and One public) shares the public key to the sender(via message.txt) and keeps the private key to itself
   - The sender encrypts the data with the key and puts on the audio wav file.
   - Encoder module calculates all the frame bytes of the audio file and chahnges the last bit of each byte to store the encrypted data.
   - On the receiver side the decoder decodes the encrypted data from the audio. It then calls the receiver module.
