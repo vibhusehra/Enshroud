@@ -22,11 +22,14 @@ def addSendTab():
 
 
 	# textBox = Entry(tab1, borderwidth=3)
+	massageLabel = Label(tab1, text="Secret Message")
+	massageLabel.grid(row=3, column=0)
+
 	textBox = Text(tab1, height=5, width=20)
-	textBox.grid(row=3, column=0, columnspan=3, sticky="ew", padx=(50,50))
+	textBox.grid(row=4, column=0, columnspan=3, sticky="ew", padx=(50,50))
 
 	decodeButton = Button(tab1, text="Encode", state=DISABLED)
-	decodeButton.grid(row=4, column=1, sticky="ew", pady=10)
+	decodeButton.grid(row=5, column=1, sticky="ew", pady=10)
 
 def load_file():
 	fname = filedialog.askopenfilename(filetypes=[("Audio Files", "*.wav")])
