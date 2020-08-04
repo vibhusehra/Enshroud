@@ -3,8 +3,30 @@ from tkinter import ttk
 from tkinter import filedialog
 
 def addSendTab():
-	pass
+	tab1.columnconfigure(1, weight=1)
+	tab1.columnconfigure(0, weight=1)
+	tab1.columnconfigure(2, weight=1)	
 
+	label1 = Label(tab1, text="Key 1")
+	label1.grid(row=0, column=0, pady=10)
+	key1Entry = Entry(tab1, width=20, borderwidth=3)
+	key1Entry.grid(row=1, column=0, padx=20)
+
+	label2 = Label(tab1, text="Key 2")
+	label2.grid(row=0, column=2, pady=10)
+	prime2Entry = Entry(tab1, width=20, borderwidth=3)
+	prime2Entry.grid(row=1, column=2, padx=20)
+
+	uploadAudioButton = Button(tab1, text="Browse Audio", command=load_file)
+	uploadAudioButton.grid(row=2, column=1, sticky="ew", pady=10)
+
+
+	# textBox = Entry(tab1, borderwidth=3)
+	textBox = Text(tab1, height=5, width=20)
+	textBox.grid(row=3, column=0, columnspan=3, sticky="ew", padx=(50,50))
+
+	decodeButton = Button(tab1, text="Encode", state=DISABLED)
+	decodeButton.grid(row=4, column=1, sticky="ew", pady=10)
 
 def load_file():
 	fname = filedialog.askopenfilename(filetypes=[("Audio Files", "*.wav")])
