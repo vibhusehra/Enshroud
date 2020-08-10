@@ -3,6 +3,25 @@ from tkinter import ttk
 from tkinter import filedialog
 from Prime import Prime
 from tkinter import messagebox
+from receiver import receiver
+from decode_song import decode
+from sender import Sender
+from encode_song import encode
+
+fname = None
+decodeButton = None
+sender_fname = None
+encodeButton = None
+
+
+
+def encodeMessage(textBox, n, e):
+	message = textBox.get("1.0", END)
+	encrypted = Sender.send_msg(message, n, e)
+	print(encrypted)
+	encode(sender_fname, encrypted)
+	messagebox.showinfo("Success", "Encodede Successfully")
+
 
 def addSendTab():
 	tab1.columnconfigure(1, weight=1)
@@ -16,10 +35,14 @@ def addSendTab():
 
 	label2 = Label(tab1, text="Key 2")
 	label2.grid(row=0, column=2, pady=10)
-	prime2Entry = Entry(tab1, width=20, borderwidth=3)
-	prime2Entry.grid(row=1, column=2, padx=20)
+	key2Entry = Entry(tab1, width=20, borderwidth=3)
+	key2Entry.grid(row=1, column=2, padx=20)
 
-	uploadAudioButton = Button(tab1, text="Browse Audio", command=load_file)
+	textBox = Text(tab1, height=5, width=20)
+
+	encodeButton = Button(tab1, text="Encode", state=DISABLED, command= lambda: encodeMessage(textBox, int(key1Entry.get()), int(key2Entry.get())))
+
+	uploadAudioButton = Button(tab1, text="Browse Audio", command=lambda: load_file(encodeButton, key1Entry, key2Entry))
 	uploadAudioButton.grid(row=2, column=1, sticky="ew", pady=10)
 
 
@@ -27,18 +50,43 @@ def addSendTab():
 	massageLabel = Label(tab1, text="Secret Message")
 	massageLabel.grid(row=3, column=0)
 
-	textBox = Text(tab1, height=5, width=20)
 	textBox.grid(row=4, column=0, columnspan=3, sticky="ew", padx=(50,50))
 
-	decodeButton = Button(tab1, text="Encode", state=DISABLED)
-	decodeButton.grid(row=5, column=1, sticky="ew", pady=10)
+	encodeButton.grid(row=5, column=1, sticky="ew", pady=10)
 
-def load_file():
+	# encode code
+
+
+def load_file(button, key1, key2):
+	global sender_fname
+	sender_fname = filedialog.askopenfilename(filetypes=[("Audio Files", "*.wav")])
+	if sender_fname:
+		try:
+			# print("""here it comes: """)
+			print(sender_fname)
+			# if label1['text'].isdigit():
+				# print('yes')
+			print(key1.get(), key2.get())
+			if key1.get().isdigit() and key2.get().isdigit():
+				# print('yes')
+				button['state'] = 'normal'
+			else:
+				displayError('Please enter an Integer')
+
+		except:                     
+			showerror("Open Source File", "Failed to read file\n'%s'" % sender_fname)
+		return
+
+def load_file_receiver(button):
+	global fname
 	fname = filedialog.askopenfilename(filetypes=[("Audio Files", "*.wav")])
 	if fname:
 		try:
 			# print("""here it comes: """)
 			print(fname)
+			if type(pk1) == int:
+				button['state'] = 'normal'
+
 		except:                     
 			showerror("Open Source File", "Failed to read file\n'%s'" % fname)
 		return
@@ -67,11 +115,28 @@ def checkEntries(prime1Entry, prime2Entry):
 		displayError("Please enter a valid Integer!!")
 		return
 
+
 	p1 = int(p1)
 	p2 = int(p2)
+
+	if p1 == p2:
+		displayError("Same Numbers not allowed")
+		deleteText(prime1Entry)
+		deleteText(prime2Entry)
+		return
+
+
 	if Prime.checkPrime(p1) and Prime.checkPrime(p2):
 		# create keys
 		print('Both Primes')
+		global pk1, pk2, pr1
+		pk1, pk2, pr1 = receiver.receiver_create_key(p1, p2)
+		changeKeyText(pk1, pk2, pr1)
+
+		if fname is not None:
+			decodeButton['state'] = 'normal'
+		print(pk1, pk2, pr1)
+
 	else:
 		ls = []
 		if(Prime.checkPrime(p1) == False): 
@@ -85,6 +150,18 @@ def checkEntries(prime1Entry, prime2Entry):
 			message += "{} is not a prime\n".format(elem)
 		displayError(message)
 
+def decodeMessage():
+	encoded = decode(fname)
+	print(pr1, pk1)
+	decoded = receiver.message_read(encoded, pr1, pk1)
+	messagebox.showinfo("Decoded Message", "secet message:{}".format(decoded))
+
+
+def changeKeyText(pk1, pk2, pr1):
+	global key1Label, key2Label, key3Label
+	key1Label['text'] = 'Public Key 1: ' + str(pk1)
+	key2Label['text'] = 'Public Key 2: ' + str(pk2)
+	key3Label['text'] = 'Private Key: ' + str(pr1)
 
 def addReceiveTab():
 	tab2.columnconfigure(1, weight=1)
@@ -106,23 +183,24 @@ def addReceiveTab():
 	generateKeyButton = Button(tab2, text="Generate Keys", command=lambda: checkEntries(prime1Entry, prime2Entry))
 	generateKeyButton.grid(row=3, column=1, pady=5, sticky="ew")
 
-	p1 = "123"
-	p2 = "456"
-	p3 = "678"
-	key1Label = Label(tab2, text="public Key 1: " + p1)
+	print(pk1, pk2, pr1)
+	
 	key1Label.grid(row=4,column=0)
-	key2Label = Label(tab2, text="public Key 2: " + p2)
+	
 	key2Label.grid(row=4,column=1)
-	key3Label = Label(tab2, text="private Key: " + p3)
+	
 	key3Label.grid(row=4,column=2)
 
-	uploadAudioButton = Button(tab2, text="Browse Audio", command=load_file)
+	global decodeButton
+	decodeButton = Button(tab2, text="Decode", state=DISABLED, command=decodeMessage)
+
+	uploadAudioButton = Button(tab2, text="Browse Audio", command=lambda: load_file_receiver(decodeButton))
 	uploadAudioButton.grid(row=5, column=1, sticky="ew", pady=10)
 
 	#maybe add file loacation label or a audio player
 
-	decodeButton = Button(tab2, text="Decode", state=DISABLED)
 	decodeButton.grid(row=7, column=1, sticky="ew", pady=10)
+
 
 
 
@@ -137,6 +215,14 @@ tabControl = ttk.Notebook(root)
 
 tab1 = ttk.Frame(tabControl)
 tab2 = ttk.Frame(tabControl)
+
+pk1 = "-"
+pk2 = "-"
+pr1 = "-"
+
+key1Label = Label(tab2, text="public Key 1: " + pk1)
+key2Label = Label(tab2, text="public Key 2: " + pk2)
+key3Label = Label(tab2, text="private Key: " + pr1)
 
 tabControl.add(tab1, text="Send")
 tabControl.add(tab2, text="Receive")

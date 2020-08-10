@@ -1,9 +1,10 @@
 import wave
-def decode():
+def decode(path):
 
     end_char = '#$%'
 
-    song = wave.open('song_embedded.wav', 'rb')
+    # song = wave.open('song_embedded.wav', 'rb')
+    song = wave.open(path, 'rb')
 
     frame_bytes = bytearray(list(song.readframes(song.getnframes())))
 

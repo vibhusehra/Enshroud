@@ -1,13 +1,14 @@
 import wave
-def encode():
+def encode(path, message):
     end_char = '#$%' # denotes message end
-    song = wave.open('song.wav', 'rb')
-    f = open('message.txt' , 'r+')
-    msg_list = f.read().split()
-    f.close()
-    message = ''
-    for i in msg_list:
-        message= message + i + ' '
+    # song = wave.open('song.wav', 'rb')
+    song = wave.open(path, 'rb')
+    # f = open('message.txt' , 'r+')
+    # msg_list = f.read().split()
+    # # f.close()
+    # message = ''
+    # for i in msg_list:
+    #     message= message + i + ' '
     print(message)
 
     '''

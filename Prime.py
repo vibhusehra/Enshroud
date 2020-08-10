@@ -10,7 +10,11 @@ class Prime:
 			primeArray = Prime.createPrimes()
 			print(e)
 
-		return np.random.choice(primeArray, 2)
+		x, y = np.random.choice(primeArray, 2)
+		while(x == y):
+			y = np.random.choice(primeArray, 1)
+
+		return (x, y)
 			
 
 
@@ -26,7 +30,7 @@ class Prime:
 
 
 	@staticmethod
-	def createPrimes(start = 0, end = 1000000):
+	def createPrimes(start = 0, end = 200):
 		end += 1
 		primeArray = np.ones((end,), dtype=bool)
 		primeArray[0] = primeArray[1] = False
@@ -50,4 +54,4 @@ class Prime:
 # print(Prime.generatePrimePair())
 # print(Prime.checkPrime(23))
 # Prime.createPrimes()
-
+# Prime.createPrimes()
