@@ -1,4 +1,7 @@
-# Secure-Transmit-Pro
+# About
+Audio Steganography is a technique used to transmit hidden information by modifying an audio signal in an imperceptible manner. It is the science of hiding some secret text or audio information in a host message. The host message before steganography and stego message after steganography have the same characteristics. We are using Audio steganography along with RSA algo to provide 2 level security.
+
+# Enshroud-Pro
 - The files for the project are as follows 
    - A sender(Encryption) module
    - A receiver(Decrytion) Module
@@ -21,5 +24,22 @@
   
  Sender Module(Prompt)--->Receiver Module(generates key)--->Sender(encrpyts data)--->Encode(puts the encrypted data in Audio using LSB technique)--->Decode(retrieves the data from audio)--->Receiver(decrypts the data using private key)
  
+ 
+ # steps to use the module
+ - clone this repository to sender and the receiver
+ - run the gui python script with python 3.8
+ - on the receiver tab generate the keys. keep the private key to yourself and share the public key with the sender(enter the small prime numbers for a better expereice)
+ - if you are the sender then on the sender Tab type your message, enter the public keys and select the audio file.
+ - share the audio file with the receiver.
+ 
+ # tech stacks used
+ - [Tkinter](https://docs.python.org/3/library/tkinter.html) was used to make the GUI.
+ - Python wave library was used for the steganography.
+ - [RSA algo](https://simple.wikipedia.org/wiki/RSA_algorithm#:~:text=RSA%20(Rivest%E2%80%93Shamir%E2%80%93Adleman,can%20be%20given%20to%20anyone.)
+ - 
+# future works/ improvements
+- the length of the message is limited by the song. New methods to be discovered so that more info can be transmitted through the same song
+- better crypoptography algos than RSA can be used
+- The whole system can be made available on cloud for better expereice to the users
 
 vibhusehra@gmail.com || doshirishabh26@gmail.com
