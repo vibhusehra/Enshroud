@@ -1,12 +1,12 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog
-from Prime import Prime
+from prime_number.Prime import Prime
 from tkinter import messagebox
-from receiver import receiver
-from decode_song import decode
-from sender import Sender
-from encode_song import encode
+from RSA.receiver import receiver
+from steganography.decode_song import decode
+from RSA.sender import Sender
+from steganography.encode_song import encode
 
 fname = None
 decodeButton = None
