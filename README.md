@@ -3,15 +3,18 @@ Audio Steganography is a technique used to transmit hidden information by modify
 
 # Enshroud-Pro
 - The files for the project are as follows 
-   - A sender(Encryption) module
-   - A receiver(Decrytion) Module
-   - A encoder module
-   - A decoder module
-  The modules are used in a manner as described in this image
+   - A sender(Encryption) module(RSA)
+   - A receiver(Decrytion) Module(RSA)
+   - A encoder module(steganography)
+   - A decoder module(steganography)
+   - prime number used to check and generate the prime numbers
+   - sample-song folder contains a song
+   - embedded_song.wav is the song where the message has been stored in the LSB of each byte of the song
+   The modules are used in a manner as described in this image
   ![WorkFlow](https://www.eetindia.co.in/wp-content/uploads/sites/4/2020/04/Data_over_sound_fig1_end_to_end_1800x1025.jpg)
   
   We are doing all the work here from sending the message to adding the message for the reciever.
-  - A sample workflow has been described in the jupyter notebook file- Sample Workflow
+  - The message is stored in the LSB of each  frame_byte of the song
   - First the sender prompts the receiver via message.txt that it wants to send a message
   - The reciever module makes 2 set of keys (One private and One public) shares the public key to the sender(via message.txt) and keeps the private key to itself
   - The sender encrypts the data with the key and puts on the audio wav file.
