@@ -1,7 +1,7 @@
 # About
 Audio Steganography is a technique used to transmit hidden information by modifying an audio signal in an imperceptible manner. It is the science of hiding some secret text or audio information in a host message. The host message before steganography and stego message after steganography have the same characteristics. We are using Audio steganography along with RSA algo to provide 2 level security.
 
-# Enshroud-Pro
+# Enshroud
 - The files for the project are as follows 
    - A sender(Encryption) module(RSA)
    - A receiver(Decrytion) Module(RSA)
@@ -39,7 +39,7 @@ Audio Steganography is a technique used to transmit hidden information by modify
  - [Tkinter](https://docs.python.org/3/library/tkinter.html) was used to make the GUI.
  - Python wave library was used for the steganography.
  - [RSA algo](https://simple.wikipedia.org/wiki/RSA_algorithm#:~:text=RSA%20(Rivest%E2%80%93Shamir%E2%80%93Adleman,can%20be%20given%20to%20anyone.)
- - 
+
 # future works/ improvements
 - the length of the message is limited by the song. New methods to be discovered so that more info can be transmitted through the same song
 - better crypoptography algos than RSA can be used
