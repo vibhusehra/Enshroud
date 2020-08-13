@@ -38,7 +38,7 @@ Audio Steganography is a technique used to transmit hidden information by modify
  # tech stacks used
  - [Tkinter](https://docs.python.org/3/library/tkinter.html) was used to make the GUI.
  - Python wave library was used for the steganography.
- - [RSA algo](https://simple.wikipedia.org/wiki/RSA_algorithm#:~:text=RSA%20(Rivest%E2%80%93Shamir%E2%80%93Adleman,can%20be%20given%20to%20anyone.)
+ - About [RSA algo](https://simple.wikipedia.org/wiki/RSA_algorithm)
 
 # future works/ improvements
 - the length of the message is limited by the song. New methods to be discovered so that more info can be transmitted through the same song
